@@ -82,7 +82,7 @@
         <div id="login-modal" class="modal-overlay" style="display: none;">
             <div class="modal-content">
                 <div class="modal-header">
-                    <span class="modal-title">TERMINAL_AUTH</span>
+                    <span class="modal-title">链接账号 | TERMINAL AUTH</span>
                     <button id="close-modal" class="close-btn">x</button>
                 </div>
                 
@@ -143,7 +143,7 @@
         auth.init();
         
         // 每小时静默刷新数据
-        setInterval(() => auth.refreshData(), 3600000);
+        setInterval(() => auth.refreshData(), 300000);
 
         // 3. 弹窗按钮监听
         document.getElementById('button0').addEventListener('click', () => {

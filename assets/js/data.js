@@ -1,5 +1,5 @@
 /**
- * UI 数据渲染与弹窗控制
+ * UI 数据渲染与条形进度条控制
  */
 function setBar(san_num, san_max, act, pass, level, username, useruid) {
     document.getElementById('sanity-num').textContent = san_num;
@@ -17,44 +17,61 @@ function setBar(san_num, san_max, act, pass, level, username, useruid) {
 
     updateFill('sanity-fill', san_num, san_max);
     updateFill('action-fill', act, 100);
-    updateFill('passion-fill', Math.min(pass, 60), 60); // 映射通行证等级
+    updateFill('passion-fill', Math.min(pass, 60), 60); 
     updateFill('level-fill', level, 60);
 }
 
 const modal = document.getElementById('login-modal');
 const modalBody = document.getElementById('modal-body');
+let currentAuthUrl = ""; // 全局变量，用于存储生成的授权链接
 
-/**
- * 渲染弹窗内容
- */
 async function renderModal() {
     if (!auth.state.anonToken) {
-        modalBody.innerHTML = '<div class="loading">SYNCING_TERMINAL...</div>';
+        modalBody.innerHTML = '<div class="loading">正在关闭全舰防御系统......</div>';
         return;
     }
 
+    // 状态 1: 已登录
     if (auth.state.isLoggedIn) {
         const name = document.getElementById('username').innerText;
         const uid = document.getElementById('useruid').innerText;
-        
         modalBody.innerHTML = `
             <div class="account-info">
-                <div class="label" style="color:#fffa00">OPERATOR_AUTHORIZED</div>
-                <div class="label" style="margin-top:15px">Operator_Name</div>
+                <div class="label" style="color:#fffa00;font-size:25px;margin-top:5px;">壁纸终端:登录成功</div>
+                <div class="label">用户名</div>
                 <div class="value">${name}</div>
-                <div class="label" style="margin-top:10px">Operator_UID</div>
+                <div class="label">UID</div>
                 <div class="value">${uid}</div>
             </div>
-            <button class="logout-btn" style="margin-top:15px;" onclick="handleLogout()">TERMINATE_SESSION</button>
+            <button class="logout-btn" style="margin-top:20px;" onclick="handleLogout()">登出</button>
         `;
-    } else {
+    } 
+    // 状态 2: 选择登录方式
+    else {
         modalBody.innerHTML = `
-            <div class="status">AWAITING_AUTH</div>
-            <div id="qr-wrap" style="min-height:180px; display:flex; align-items:center; justify-content:center; background:#fff; margin:15px 0;">
-                <img id="modal-qr-img" src="" alt="QR" style="display:none; width:180px; height:180px;">
-                <span id="qr-loading" style="color:#000">GENERATING...</span>
+            <div class="auth-options" style="display: flex; gap: 20px; text-align: left;">
+                <div style="flex: 1; border-right: 3px solid #333; padding-right: 20px;">
+                    <div class="label" style="margin-top:0px; margin-bottom:10px">方法一：森空岛扫码</div>
+                    <div id="qr-container" style="background:#fff; padding:5px; width:150px; height:150px; border-radius:10px; display:flex; align-items:center; justify-content:center;">
+                        <img id="modal-qr-img" style="display:none; width:120px; height:120px;">
+                        <span id="qr-loading" style="color:#000; font-size:20px;">LOADING...</span>
+                    </div>
+                </div>
+                <div style="flex: 1;">
+                    <div class="label" style="margin-top:0px; margin-bottom:10px">方法二：远程授权</div>
+                    <p style="font-size:15px; color:#666;">填写你的终末地协议终端API，申请长期有效凭证。</p>
+                    <button id="remote-init-btn" class="primary-btn" 
+                            style="width:100%; padding:12px; background:#fffa00; border:none; border-radius:10px; font-size:16px; cursor:pointer; font-family: AlimamaShuHeiTi-Bold;" 
+                            onclick="handleRemoteAuth()">申请授权</button>
+                    
+                    <div id="remote-link-area" style="display:none; margin-top:10px; border:2px dashed #fffa00; border-radius:10px; padding:10px; text-align:center;">
+                        <a id="auth-target-url" href="javascript:void(0)" 
+                           style="color:#fffa00; font-size:18px; text-decoration:none;" 
+                           onclick="copyAuthUrl()">点击以复制授权链接</a>
+                        <div id="copy-status" style="font-size:12px; color:#fffa00; margin-top:5px;">AWAITING_INIT...</div>
+                    </div>
+                </div>
             </div>
-            <div class="label">SCAN_WITH_SKLAND_APP</div>
         `;
         
         const qrSrc = await auth.getQRCode();
@@ -67,11 +84,55 @@ async function renderModal() {
     }
 }
 
-function handleLogout() {
-    if (confirm("是否确认断开终端连接？")) {
-        auth.logout();
-        modal.style.display = 'none';
-        document.getElementById('username').innerText = "UserNotFound";
-        document.getElementById('useruid').innerText = "0000000000";
+/**
+ * 处理远程授权初始化
+ */
+async function handleRemoteAuth() {
+    const btn = document.getElementById('remote-init-btn');
+    const area = document.getElementById('remote-link-area');
+    const status = document.getElementById('copy-status');
+    
+    btn.style.display = 'none';
+    area.style.display = 'block';
+    status.innerText = "GENERATING_LINK...";
+    
+    const url = await auth.createAuthRequest(); // 调用 auth.js 的授权申请接口
+    if (url) {
+        currentAuthUrl = url;
+        status.innerText = "READY_CLICK_TO_COPY";
+    } else {
+        status.innerText = "GENERATE_FAILED";
+        btn.style.display = 'block';
     }
+}
+
+/**
+ * 复制到剪贴板函数
+ */
+function copyAuthUrl() {
+    if (!currentAuthUrl) return;
+
+    navigator.clipboard.writeText(currentAuthUrl).then(() => {
+        const status = document.getElementById('copy-status');
+        const link = document.getElementById('auth-target-url');
+        
+        // 成功反馈
+        const originalText = link.innerText;
+        link.innerText = "复制成功！请在浏览器打开";
+        status.innerText = "PASTE_IN_BROWSER_TO_AUTHORIZE";
+        
+        setTimeout(() => {
+            link.innerText = originalText;
+            status.innerText = "PASTE_IN_BROWSER_TO_AUTHORIZE";
+        }, 2000);
+    }).catch(err => {
+        console.error('Copy Failed:', err);
+        document.getElementById('copy-status').innerText = "COPY_FAILED_PLEASE_MANUAL";
+    });
+}
+
+function handleLogout() {
+    auth.logout();
+    modal.style.display = 'none';
+    auth.refreshData();
 }

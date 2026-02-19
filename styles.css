@@ -20,6 +20,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+    font-family: AlimamaShuHeiTi-Bold, 'Microsoft YaHei', sans-serif;
 }
 
 .will-change-transform { will-change: transform;}
@@ -477,7 +478,8 @@ body {
 }
 
 .modal-content {
-    width: 320px;
+    width: 500px;
+    border-radius: 30px;
     background: rgba(20, 20, 20, 0.9);
     border: 1px solid #333;
     color: #fff;
@@ -487,29 +489,35 @@ body {
 
 .modal-header {
     background: #1a1a1a;
-    padding: 10px 15px;
+    border-radius: 30px 30px 0 0;
+    padding: 20px 30px;
     display: flex; justify-content: space-between;
-    border-bottom: 2px solid #fffa00; /* 终末地标志性黄色 */
+    border-bottom: 3px solid #fffa00; /* 终末地标志性黄色 */
 }
 
-.modal-title { font-size: 12px; font-weight: bold; letter-spacing: 2px; }
+.modal-title { font-size: 20px; letter-spacing: 3px; margin-top:5px; }
 
 .modal-body { padding: 30px; text-align: center; }
 
 /* 登录状态下的账户显示 */
 .account-info { text-align: left; margin-bottom: 20px; }
 .account-info div { margin-bottom: 8px; }
-.label { color: #666; font-size: 10px; text-transform: uppercase; }
-.value { color: #fffa00; font-family: monospace; font-size: 16px; }
+.label { color: #666; font-size: 10px; margin-top:25px; text-transform: uppercase;font-size:15px; }
+.value { color: #fffa00; font-family: AlimamaShuHeiTi-Bold;font-size:20px; }
 
 /* 扫码状态下的 QR 显示 */
 #modal-qr-img { width: 180px; height: 180px; border: 1px solid #fffa00; padding: 5px; background: #fff; }
 
 /* 按钮样式 */
 .logout-btn {
-    width: 100%; padding: 10px; background: #e74c3c; border: none; color: white;
-    font-weight: bold; cursor: pointer; transition: 0.2s;
+    width: 100%; padding: 10px; background: #ff9900; border-radius: 15px; border: none; color: white;
+    cursor: pointer; font-family: AlimamaShuHeiTi-Bold; font-size: 20px; letter-spacing:60px; text-indent: 60px; transition: 0.2s;
 }
-.logout-btn:hover { background: #c0392b; filter: brightness(1.2); }
+.logout-btn:hover { background: #e74c3c; }
 
-.close-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+.close-btn { background: rgb(53, 53, 53); border-radius:8px; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+
+.primary-btn:hover { background: #fff !important; }
+.primary-btn:active { transform: scale(0.98); }
+.loading { font-size: 20px; color: #fffa00; animation: blink 1s infinite; }
+@keyframes blink { 50% { opacity: 0.5; } }
