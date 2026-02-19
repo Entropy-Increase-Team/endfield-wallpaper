@@ -1,0 +1,516 @@
+@font-face {
+    font-family: AlimamaShuHeiTi-Bold;
+    src: url('assets/font/AlimamaShuHeiTi-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: impact;
+    src: url('assets/font/impact.ttf') format('truetype');
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    background-color: #000; /* 裁剪区背景色 */
+    background-image: url(assets/image/background.png);
+    background-size: cover;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.will-change-transform { will-change: transform;}
+.highblur { backdrop-filter: blur(5px); }
+.lowblur { backdrop-filter: blur(2px); }
+.pause { animation-play-state: paused !important; }
+
+#stage {
+    position: relative;
+    /* 核心逻辑：像背景图的 cover 一样缩放 */
+    width: 100vw;
+    height: 56.25vw; /* 9 / 16 * 100 */
+    
+    /* 确保在宽屏或窄屏下都能至少撑满屏幕 */
+    min-height: 100vh;
+    min-width: 177.78vh; /* 16 / 9 * 100 */
+    overflow: hidden; 
+    flex-shrink: 0;
+    container-type: size;
+    container-name: layout;
+}
+
+#clock {
+    position: absolute;
+    top: 38.5%;
+    right: 19%;
+    color:#2c2c2c;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 4cqw;
+    z-index: 6;
+}
+#date {
+    position: absolute;
+    top: 47%;
+    right: 32.5%;
+    color:#2c2c2c;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 1.6cqw;
+    z-index: 6;
+}
+
+#box0 {
+    position: absolute;
+    width: 50%;
+    height: 50%;
+    bottom: 0%;
+    right: 0%;
+    z-index: 10;
+    transform-style: preserve-3d;
+}
+#box1 {
+    position: absolute;
+    width: 80%;
+    height: 50%;
+    top: 0%;
+    right: -10%;
+    z-index: 6;
+    transform-style: preserve-3d;
+}
+
+#image0 {
+    position: absolute;
+    width: 118%;
+    bottom: 0%;
+    right: 1%;
+    z-index: 1;
+    animation: moveleft 64s linear infinite;
+}
+#image00 {
+    position: absolute;
+    width: 118%;
+    bottom: 0%;
+    right: 1%;
+    z-index: 1;
+    animation: moveleft1 64s linear infinite;
+}
+@keyframes moveleft {
+    0% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(-103%);
+    }
+}
+@keyframes moveleft1 {
+    0% {
+        transform: translateX(103%);
+    }
+    100% {
+        transform: translateX(0%);
+    }
+}
+
+#video1 {
+    position: absolute;
+    width: 100%;
+    top: 8%;
+    z-index: 3;
+}
+
+
+#infoboard {
+    position: absolute;
+    width: 69.63%;
+    bottom: 44%;
+    right: 12%;
+    z-index: 4;
+    border-radius: 0.5vw;
+
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+#infoboard1 {
+    position: absolute;
+    width: 56.09%;
+    bottom: 45%;
+    right: 20.2%;
+    z-index: 4;
+
+    transform: translateZ(20px);
+}
+#infoboard2 {
+    position: absolute;
+    width: 66%;
+    bottom: 46%;
+    right: 14%;
+    z-index: 4;
+
+    transform: translateZ(30px);
+}
+
+#image7 {
+    position: absolute;
+    width: 2.18%;
+    bottom: 52%;
+    right: 7%;
+    z-index: 4;
+
+    transform: translateZ(-50px);
+}
+
+#button0 {    
+    position: absolute;
+    width: 5.78%;
+    bottom: 36.6%;
+    right: 9%;
+    z-index: 5;
+    transform: translateZ(30px);
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+#button0:hover {
+    transform: translateZ(60px);
+    filter: brightness(1.2) drop-shadow(0 0 5px rgba(255,250,0,1));
+}
+#button0:active {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(30px);
+    filter: brightness(1.6) drop-shadow(0 0 12px rgba(255,250,0,1));
+}
+#button1 {    
+    position: absolute;
+    width: 5.78%;
+    bottom: 20.4%;
+    right: 9%;
+    z-index: 5;
+    transform: translateZ(30px);
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+#button1:hover {
+    transform: translateZ(60px);
+    filter: brightness(1.2) drop-shadow(0 0 10px rgba(255,250,0,1));
+}
+#button1:active {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(30px);
+    filter: brightness(1.6) drop-shadow(0 0 12px rgba(255,250,0,1));
+}
+
+#usercard {
+    position: absolute;
+    width: 45.72%;
+    bottom: 20%;
+    right: 16%;
+    z-index: 6;
+
+    transform: translateZ(60px);
+}
+#usercard1 {
+    position: absolute;
+    width: 34.73%;
+    bottom: 23%;
+    right: 18.5%;
+    z-index: 6;
+
+    transform: translateZ(75px);
+}
+#usercard2 {
+    position: absolute;
+    width: 40%;
+    bottom: 28.3%;
+    right: 19.5%;
+    z-index: 6;
+
+    transform: translateZ(90px);
+}
+
+.button2stage {
+    position: absolute;
+    width: 11.3%;
+    bottom: 49%;
+    right: 62%;
+    z-index: 4;
+    flex-shrink: 0;
+    container-type: size;
+
+    transform-style: preserve-3d;
+    transform: translateZ(45px);
+}
+
+#button2 {
+    position: absolute;
+    width: 93%; 
+    top: 0.3vh;
+    left: 0.2vw;
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+.button2stage:hover #button2 {
+    transform: translateZ(40px);
+    filter: brightness(1.2)
+}
+.button2stage:active #button2 {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(0px);
+    filter: brightness(1.6) drop-shadow(0 0 10px rgba(255,250,0,1));
+}
+#button20 {
+    position: absolute;
+    width: 93%;
+
+    transform: translateZ(5px);
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+.button2stage:hover #button20 {
+    transform: translateZ(55px);
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.5));
+}
+.button2stage:active #button20 {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(5px);
+    filter: brightness(1.6)
+}
+.button22 {
+    position: absolute;
+    width: 100%;
+
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94), filter 0.3s;
+}
+.button2stage:hover #button22 {
+    transform: translateZ(30px);
+    filter: brightness(1.2) drop-shadow(0 0 4px rgba(255,250,0,0.5));
+}
+.button2stage:active #button22 {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(0px);
+    filter: brightness(1.6)
+}
+#button23 {
+    filter: opacity(0);
+}
+.button2stage:hover #button23 {
+    transform: translateZ(30px);
+    filter: opacity(1) brightness(1.2) drop-shadow(0 0 4px rgba(255,250,0,0.5));
+}
+.button2stage:active #button23 {
+    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transform: translateZ(0px);
+    filter: brightness(1.6)
+}
+
+
+#image1 {
+    position: absolute;
+    height: 100%;
+    right: 0%;
+    z-index: 5;
+}
+
+#image3 {
+    position: absolute;
+    width: 100%;
+    z-index: 4;
+}
+#image30 {
+    position: absolute;
+    width: 12.68%;
+    top: 28.15%;
+    left: 49.6%;
+    z-index: 6;
+}
+
+#image5 {
+    position: absolute;
+    width: 1.30%;
+    top: 4%;
+    right: 3.5%;
+    z-index: 5;
+}
+
+#image2 {
+    position: absolute;
+    width: 17.31%;
+    top: 57%;
+    right: 56%;
+    z-index: 3;
+}
+#image4 {
+    position: absolute;
+    width: 36.26%;
+    top: 56%;
+    right: 18%;
+    z-index: 6;
+
+    transform: translateZ(80px);
+}
+#image6 {
+    position: absolute;
+    width: 94.4%;
+    top: 31%;
+    right: 9.5%;
+    z-index: 5;
+
+    transform: translateZ(40px);
+}
+#image8 {
+    position: absolute;
+    width: 14.8%;
+    top: 43%;
+    right: 31%;
+    z-index: 4;
+
+    transform: translateZ(-30px);
+}
+#image9 {
+    position: absolute;
+    width: 34.37%;
+    top: 43%;
+    right: 47%;
+    z-index: 5;
+}
+#usericon {
+    position: absolute;
+    width: 8%;
+    bottom: 28.5%;
+    right: 19.5%;
+    
+    transform: translateZ(75px);
+}
+
+#kanrinin {
+    position: absolute;
+    width: 65.39%;
+    bottom: 0%;
+    left: 0%;
+    z-index: 6;
+}
+
+
+.line {
+    position: absolute;
+    width: 37%;
+    height: 1.8%;
+    right: 14%;
+    background: rgba(0, 0, 0, 0);
+    border-radius: 3vw;
+    overflow: hidden;
+    transform: translateZ(31px);
+}
+.line-fill {
+    width: 0%;            /* 初始宽度为 0 */
+    height: 100%;
+    background: rgb(255,250,0);  /* 进度条颜色 */
+    /* 核心动画：平滑过渡 */
+    transition: width 0.3s ease-out; 
+}
+.num-text {
+    position: absolute;
+    right: 14.2%;
+    font-family: AlimamaShuHeiTi-Bold, 'Microsoft YaHei', sans-serif;
+    font-size: 2.3cqw;
+    color: white;
+    transform: translateZ(21px);
+}
+
+#sanity-line {
+    bottom: 81.3%;
+}
+#act-line {
+    bottom: 66.8%;
+}
+#pass-line {
+    bottom: 52%;
+}
+#level-line {
+    width: 30.1%;
+    height: 1.3%;
+    right: 29.4%;
+    bottom: 29.05%;
+    transform: translateZ(91px);
+}
+
+#sanity-num {
+    bottom: 81%;
+}
+#act-num {
+    bottom: 66.5%;
+}
+#pass-num {
+    bottom: 51.7%;
+}
+#level-num {
+    font-size: 3cqw;
+    right: 52.8%;
+    bottom: 28.5%;
+    transform: translateZ(90px);
+}
+#sanity-max {
+    font-size: 0.8cqw;
+    right: 26%;
+    bottom: 82.45%;
+}
+#username {
+    font-size: 1.4cqw;
+    right: 29.4%;
+    bottom: 38%;
+    transform: translateZ(90px);
+}
+#useruid {
+    font-size: 0.7cqw;
+    right: 29.8%;
+    bottom: 35.3%;
+    transform: translateZ(80px);
+}
+
+
+
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(8px); /* 毛玻璃效果 */
+    display: flex; align-items: center; justify-content: center;
+    z-index: 9999;
+}
+
+.modal-content {
+    width: 320px;
+    background: rgba(20, 20, 20, 0.9);
+    border: 1px solid #333;
+    color: #fff;
+    padding: 0;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.5);
+}
+
+.modal-header {
+    background: #1a1a1a;
+    padding: 10px 15px;
+    display: flex; justify-content: space-between;
+    border-bottom: 2px solid #fffa00; /* 终末地标志性黄色 */
+}
+
+.modal-title { font-size: 12px; font-weight: bold; letter-spacing: 2px; }
+
+.modal-body { padding: 30px; text-align: center; }
+
+/* 登录状态下的账户显示 */
+.account-info { text-align: left; margin-bottom: 20px; }
+.account-info div { margin-bottom: 8px; }
+.label { color: #666; font-size: 10px; text-transform: uppercase; }
+.value { color: #fffa00; font-family: monospace; font-size: 16px; }
+
+/* 扫码状态下的 QR 显示 */
+#modal-qr-img { width: 180px; height: 180px; border: 1px solid #fffa00; padding: 5px; background: #fff; }
+
+/* 按钮样式 */
+.logout-btn {
+    width: 100%; padding: 10px; background: #e74c3c; border: none; color: white;
+    font-weight: bold; cursor: pointer; transition: 0.2s;
+}
+.logout-btn:hover { background: #c0392b; filter: brightness(1.2); }
+
+.close-btn { background: none; border: none; color: #fff; font-size: 20px; cursor: pointer; }

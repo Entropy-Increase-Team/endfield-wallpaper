@@ -1,0 +1,113 @@
+{
+	"file" : "index.html",
+	"general" : 
+	{
+		"properties" : 
+		{
+			"act_num" : 
+			{
+				"fraction" : false,
+				"index" : 3,
+				"max" : 100,
+				"min" : 0,
+				"order" : 103,
+				"text" : "活跃",
+				"type" : "slider",
+				"value" : 0
+			},
+			"level_num" : 
+			{
+				"fraction" : false,
+				"index" : 5,
+				"max" : 60,
+				"min" : 0,
+				"order" : 105,
+				"text" : "等级",
+				"type" : "slider",
+				"value" : 0
+			},
+			"pass_num" : 
+			{
+				"fraction" : false,
+				"index" : 4,
+				"max" : 100,
+				"min" : 0,
+				"order" : 104,
+				"text" : "通行证",
+				"type" : "slider",
+				"value" : 0
+			},
+			"quality" : 
+			{
+				"index" : 0,
+				"options" : 
+				[
+					{
+						"label" : "高(4k)",
+						"value" : "3"
+					},
+					{
+						"label" : "中(2k)",
+						"value" : "2"
+					},
+					{
+						"label" : "低(1k)",
+						"value" : "1"
+					}
+				],
+				"order" : 100,
+				"text" : "渲染质量",
+				"type" : "combo",
+				"value" : "2"
+			},
+			"sanity_max" : 
+			{
+				"fraction" : false,
+				"index" : 2,
+				"max" : 400,
+				"min" : 0,
+				"order" : 102,
+				"text" : "理智最大值",
+				"type" : "slider",
+				"value" : 10
+			},
+			"sanity_num" : 
+			{
+				"fraction" : false,
+				"index" : 1,
+				"max" : 400,
+				"min" : 0,
+				"order" : 101,
+				"text" : "理智",
+				"type" : "slider",
+				"value" : 1
+			},
+			"schemecolor" : 
+			{
+				"order" : 0,
+				"text" : "ui_browse_properties_scheme_color",
+				"type" : "color",
+				"value" : "255 250 0"
+			},
+			"username" : 
+			{
+				"index" : 6,
+				"order" : 106,
+				"text" : "用户名",
+				"type" : "textinput",
+				"value" : "UserNotFound"
+			},
+			"useruid" : 
+			{
+				"index" : 7,
+				"order" : 107,
+				"text" : "UID",
+				"type" : "textinput",
+				"value" : "0000000000"
+			}
+		}
+	},
+	"title" : "Endfield",
+	"type" : "web",
+	"version" : 1
+}
