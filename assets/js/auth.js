@@ -8,7 +8,7 @@ class EndfieldAuth {
         this.onDataUpdate = config.onDataUpdate || (() => {});
         
         // 硬编码配置
-        this.API_KEY = 'ef_4fb54d79b802de3c1e16046aee8b9b10f773b1fa811c909857419951681cc163';
+        this.API_KEY = 'Your API Key Here'; // 替换为你的 API Key
         this.STORAGE_KEY = 'endfield_f_token'; 
         
         this.state = {
