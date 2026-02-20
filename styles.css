@@ -518,7 +518,8 @@ body {
 #cancel-logout {background-color: #ccc;}
 #cancel-logout:hover { background: #7c7c7c; }
 
-.close-btn { background: rgb(53, 53, 53); border-radius:8px; border: none; color: #fff; font-size: 20px; cursor: pointer; }
+.close-btn { background: rgb(53, 53, 53); border-radius:8px; border: none; color: #fff; cursor: pointer; display: flex; align-items: center; justify-content: center;}
+.close-btn:hover{ background-color: #7c7c7c; }
 
 .primary-btn:hover { background: #fff !important; }
 .primary-btn:active { transform: scale(0.98); }

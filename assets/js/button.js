@@ -5,6 +5,7 @@ document.getElementById("button2stage").addEventListener('click', () => {
     const v0 = document.getElementById('kanrinin');
     const logo = document.getElementById('button20');
     if (pause == false) {
+        showNotice("已暂停所有动画播放");
         v1.pause();
         v0.pause();
         logo.src = 'assets/image/button21.png';
@@ -12,6 +13,7 @@ document.getElementById("button2stage").addEventListener('click', () => {
         document.getElementById("image00").classList.add("pause");
         pause = true;
     } else {
+        showNotice("已恢复所有动画播放");
         v1.play();
         v0.play();
         logo.src = 'assets/image/button20.png';

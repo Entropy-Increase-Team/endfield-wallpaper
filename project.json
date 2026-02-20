@@ -1,20 +1,37 @@
 {
+	"discription" : "",
 	"file" : "index.html",
 	"general" : 
 	{
 		"properties" : 
 		{
-			"api" : 
+			"editor_msg" : 
+			{
+				"index" : 200,
+				"order" : 100,
+				"text" : "<center><br/><a href='https://space.bilibili.com/388390866'><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEKnG.MuT8Ls7Kg.xk*2EBHqnt*JU7utLLszJMxpdJrUs*4QIgSnuoJyyc3d2qp0iexpBYkeijLpt9tfQx9jlyD0!/b&bo=IAPoAyAD6AMDByI!&rf=viewer_4\" width=\"300\" height=\"375\"></a></center>",
+				"type" : "text",
+				"value" : ""
+			},
+			"api_msg" : 
+			{
+				"index" : 201,
+				"order" : 102,
+				"text" : "<center><br/><a href='https://space.bilibili.com/99046357'><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEIUMb1ZvF2yDc95IlDi5OoNw4d454aqZjdSNOgFitHvyd5.oZd3ocl.a.JPDr3nPdvvqTZc1XwBqpNqfw83no68!/b&bo=IAPoAyAD6AMDByI!&rf=viewer_4\" width=\"300\" height=\"375\"></a></center>",
+				"type" : "text",
+				"value" : ""
+			},
+			"line10" : 
 			{
 				"index" : 1,
-				"order" : 101,
-				"text" : "API密钥",
-				"type" : "textinput",
-				"value" : "0"
+				"order" : 110,
+				"text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKNRTvxvUMMeM7QNklfClbypUWBNpktP4GUhQoPfPkLR.c05nhjGkSBztxCNWxVIMQ!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"5\">",
+				"type" : "color",
+				"value" : "1 0 0"
 			},
 			"quality" : 
 			{
-				"index" : 0,
+				"index" : 2,
 				"options" : 
 				[
 					{
@@ -30,21 +47,111 @@
 						"value" : "1"
 					}
 				],
-				"order" : 100,
-				"text" : "渲染质量",
+				"order" : 111,
+				"text" : "<big><b>渲染质量",
 				"type" : "combo",
 				"value" : "2"
+			},
+			"quality-text" : 
+			{
+				"index" : 3,
+				"order" : 112,
+				"text" : "调整此选项会切换动态视频源并调整部分效果，如果你感到卡顿或认为壁纸占用了过多系统资源，请尝试降低此选项",
+				"type" : "text",
+				"value" : ""
+			},
+			"line11" : 
+			{
+				"index" : 4,
+				"order" : 113,
+				"text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKunHFgloIezVj.54GGf7QL5DfCC.PZiF2I0iN0AczuYGIDjEhS4pXf6MFkk1D3sg0!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"2\">",
+				"type" : "color",
+				"value" : "1 0 0"
+			},
+			"api" : 
+			{
+				"index" : 5,
+				"order" : 114,
+				"text" : "<big><b><color:#fffa00>API密钥",
+				"type" : "textinput",
+				"value" : "0"
+			},
+			"api-text" : 
+			{
+				"index" : 6,
+				"order" : 115,
+				"text" : "填写你的API Key。如果你还未申请API Key或尚不清楚申请方法，请阅读下方教程",
+				"type" : "text",
+				"value" : ""
+			},
+			"line12" : 
+			{
+				"index" : 7,
+				"order" : 116,
+				"text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKunHFgloIezVj.54GGf7QL5DfCC.PZiF2I0iN0AczuYGIDjEhS4pXf6MFkk1D3sg0!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"2\">",
+				"type" : "color",
+				"value" : "1 0 0"
+			},
+			"line20" : 
+			{
+				"index" : 7,
+				"order" : 120,
+				"text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKNRTvxvUMMeM7QNklfClbypUWBNpktP4GUhQoPfPkLR.c05nhjGkSBztxCNWxVIMQ!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"5\">",
+				"type" : "color",
+				"value" : "1 0 0"
+			},
+			"title-main" : 
+			{
+				"index" : 6,
+				"order" : 121,
+				"text" : "<big><b>壁纸教程",
+				"type" : "text",
+				"value" : ""
+			},
+			"title-0" : 
+			{
+				"index" : 6,
+				"order" : 122,
+				"text" : "<b>1.绑定方式与区别",
+				"type" : "text",
+				"value" : ""
+			},
+			"maintext-0" : 
+			{
+				"index" : 6,
+				"order" : 123,
+				"text" : "本壁纸包含两种绑定账户的方式，点击壁纸右侧“链接”按钮即可看到：扫码直绑与网站授权绑定。",
+				"type" : "text",
+				"value" : ""
+			},
+			"maintext-1" : 
+			{
+				"index" : 6,
+				"order" : 124,
+				"text" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫码直绑：直接使用森空岛扫码即可绑定，速度最快，但稳定性较差，可能频繁出现数据断连；且该方法数据将与 终末地:协议终端 网站数据冲突，两者无法共同使用。\n授权绑定：前往 终末地:协议终端 注册并绑定游戏账号，之后在 开发者>API密匙>新建密匙 即可申请密匙",
+				"type" : "text",
+				"value" : ""
+			},
+			"maintext-2" : 
+			{
+				"index" : 6,
+				"order" : 125,
+				"text" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授权绑定：前往 终末地:协议终端 注册并绑定游戏账号，之后在 开发者>API密匙>新建密匙 即可申请密匙",
+				"type" : "text",
+				"value" : ""
 			},
 			"schemecolor" : 
 			{
 				"order" : 0,
 				"text" : "ui_browse_properties_scheme_color",
 				"type" : "color",
-				"value" : "255 250 0"
+				"value" : "1 0.9803921568627451 0"
 			}
 		}
 	},
-	"title" : "Endfield",
+	"preview" : "preview.gif",
+	"snapshotformat" : 0,
+	"title" : "终末地Endfield壁纸 动态+时钟+数据监控",
 	"type" : "web",
 	"version" : 1
 }

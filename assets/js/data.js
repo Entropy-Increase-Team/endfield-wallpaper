@@ -162,3 +162,8 @@ function showNotice(text) {
     void notice.offsetWidth; 
     notice.classList.add('notice-active');
 }
+
+function rebootTerminal() {
+    showNotice("正在重启终端......");
+    setTimeout(() => {location.reload();}, 1000);
+}

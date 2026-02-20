@@ -1,15 +1,57 @@
+const dbStore = {
+    dbName: "EndfieldTerminalDB",
+    storeName: "auth_settings",
+
+    _open() {
+        return new Promise((resolve, reject) => {
+            const request = indexedDB.open(this.dbName, 1);
+            request.onupgradeneeded = (e) => {
+                const db = e.target.result;
+                if (!db.objectStoreNames.contains(this.storeName)) {
+                    db.createObjectStore(this.storeName, { keyPath: "id" });
+                }
+            };
+            request.onsuccess = (e) => resolve(e.target.result);
+            request.onerror = (e) => reject(e.target.error);
+        });
+    },
+
+    async get(key) {
+        const db = await this._open();
+        return new Promise((resolve) => {
+            const transaction = db.transaction([this.storeName], "readonly");
+            const request = transaction.objectStore(this.storeName).get(key);
+            request.onsuccess = () => resolve(request.result ? request.result.value : null);
+            request.onerror = () => resolve(null);
+        });
+    },
+
+    async set(key, value) {
+        const db = await this._open();
+        const transaction = db.transaction([this.storeName], "readwrite");
+        transaction.objectStore(this.storeName).put({ id: key, value: value });
+    },
+
+    async delete(key) {
+        const db = await this._open();
+        const transaction = db.transaction([this.storeName], "readwrite");
+        transaction.objectStore(this.storeName).delete(key);
+    }
+};
+
 class EndfieldAuth {
     constructor(config) {
         this.baseUrl = config.baseUrl || 'https://end-api.shallow.ink';
         this.onStatusChange = config.onStatusChange || (() => {});
         this.onDataUpdate = config.onDataUpdate || (() => {});
         
-        this.API_KEY = 'Your Api Key';
+        this.API_KEY = '0';
         this.STORAGE_KEY = 'endfield_f_token'; 
+        this.API_STORAGE_KEY = 'endfield_saved_api';
         
         this.state = {
             anonToken: null,
-            frameworkToken: localStorage.getItem(this.STORAGE_KEY),
+            frameworkToken: null,
             isLoggedIn: false,
             loginType: null
         };
@@ -17,12 +59,22 @@ class EndfieldAuth {
 
     async setApi(api) {
         this.API_KEY = api;
+        await dbStore.set(this.API_STORAGE_KEY, api); // 存入数据库
     }
 
     async init() {
         this.onStatusChange("INITIALIZING");
         try {
-            // 获取匿名令牌
+            // 1. 同时从 IndexedDB 获取 Token 和 API Key
+            const [savedToken, savedApi] = await Promise.all([
+                dbStore.get(this.STORAGE_KEY),
+                dbStore.get(this.API_STORAGE_KEY)
+            ]);
+
+            this.state.frameworkToken = savedToken;
+            if (savedApi) this.API_KEY = savedApi; // 恢复保存的 API
+
+            // 2. 获取匿名令牌 (保持不变)
             const fingerprint = this._generateFingerprint();
             const res = await fetch(`${this.baseUrl}/api/v1/auth/anonymous-token`, {
                 method: 'POST',
@@ -32,8 +84,8 @@ class EndfieldAuth {
             const result = await res.json();
             this.state.anonToken = result.data.token;
 
-            // 自动登录判定
-            if (this.state.frameworkToken) {
+            // 3. 自动登录判定 (如果 API 还是 0，即便有 Token 也会报错，所以这里可以加个判定)
+            if (this.state.frameworkToken && this.API_KEY !== '0') {
                 await this.refreshData();
             } else {
                 this.onStatusChange("AWAITING_LOGIN");
@@ -138,8 +190,8 @@ class EndfieldAuth {
         } catch (e) { this.onStatusChange("SYNC_ERROR"); }
     }
 
-    logout() {
-        localStorage.removeItem(this.STORAGE_KEY);
+    async logout() {
+        await dbStore.delete(this.STORAGE_KEY);
         this.state.frameworkToken = null;
         this.state.isLoggedIn = false;
         this.onStatusChange("AWAITING_LOGIN");
@@ -154,7 +206,7 @@ class EndfieldAuth {
             const result = await res.json();
             if (result.data.status === 'approved' || result.data.status === 'used') {
                 clearInterval(timer);
-                this._completeLogin(result.data.framework_token, 'REMOTE');
+                this._completeLogin(result.data.framework_token, this.API_KEY, 'REMOTE');
             }
         }, 3000);
     }
@@ -168,16 +220,22 @@ class EndfieldAuth {
             const result = await res.json();
             if (result.data.status === 'done') {
                 clearInterval(timer);
-                this._completeLogin(fToken, 'QR');
+                this._completeLogin(fToken, 'null','QR');
             }
         }, 2000);
     }
 
-    _completeLogin(token, type) {
+    async _completeLogin(token, api, type) {
         this.state.frameworkToken = token;
         this.state.loginType = type;
-        localStorage.setItem(this.STORAGE_KEY, token);
-        this.refreshData();
+        
+        // 修正：将 api 存入对应的键名，且纠正 adStore 为 dbStore
+        await Promise.all([
+            dbStore.set(this.STORAGE_KEY, token),
+            dbStore.set(this.API_STORAGE_KEY, api) 
+        ]);
+        
+        await this.refreshData();
     }
 
     _generateFingerprint() {
