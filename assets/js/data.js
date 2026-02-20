@@ -2,11 +2,14 @@
  * UI 数据渲染与条形进度条控制
  */
 function setBar(san_num, san_max, act, pass, level, username, useruid) {
-    document.getElementById('sanity-num').textContent = san_num;
-    document.getElementById('act-num').textContent = act;
-    document.getElementById('pass-num').textContent = pass;
-    document.getElementById('level-num').textContent = level;
-    document.getElementById('sanity-max').textContent = san_max;
+    const format = (n) => String(n).padStart(2, '0');
+
+    document.getElementById('sanity-num').textContent = format(san_num);
+    document.getElementById('act-num').textContent = format(act);
+    document.getElementById('pass-num').textContent = format(pass);
+    document.getElementById('level-num').textContent = format(level);
+    document.getElementById('sanity-max').textContent = format(san_max);
+
     document.getElementById('username').textContent = username;
     document.getElementById('useruid').textContent = useruid;
 
@@ -111,28 +114,51 @@ async function handleRemoteAuth() {
  */
 function copyAuthUrl() {
     if (!currentAuthUrl) return;
+    copyToClipboard(currentAuthUrl);
+}
 
-    navigator.clipboard.writeText(currentAuthUrl).then(() => {
-        const status = document.getElementById('copy-status');
-        const link = document.getElementById('auth-target-url');
-        
-        // 成功反馈
-        const originalText = link.innerText;
-        link.innerText = "复制成功！请在浏览器打开";
-        status.innerText = "PASTE_IN_BROWSER_TO_AUTHORIZE";
-        
-        setTimeout(() => {
-            link.innerText = originalText;
-            status.innerText = "PASTE_IN_BROWSER_TO_AUTHORIZE";
-        }, 2000);
-    }).catch(err => {
+function copyToClipboard(text) {
+    navigator.clipboard.writeText(text).then(() => {
+        showNotice("链接已复制到剪贴板！")
+        ;}).catch(err => {
         console.error('Copy Failed:', err);
-        document.getElementById('copy-status').innerText = "COPY_FAILED_PLEASE_MANUAL";
+        showNotice("复制失败......");
     });
 }
 
 function handleLogout() {
+    document.getElementById('tips-modal').style.display = 'flex';
+    document.getElementById('tips-modal').innerHTML = `
+            <div class="modal-content" style="width: 400px;">
+                <div class="modal-header" style="padding: 15px 25px;">
+                    <span class="modal-title">操作确认 | CONFIRM</span>
+                </div>
+                <div class="modal-body" style="padding: 25px; font-size: 16px; color: #686868;">
+                    <p style="color:#e74c3c; font-size: 25px; margin-top:5px;">是否确认登出？</p>
+                    <p style="font-size: 16px; margin-top:-10px;">注意，此操作仅清理本地凭证。如果你使用授权登入，则登出不会清除你的授权信息。</p>
+                    <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                        <button id="confirm-logout" class="logout-btn" onclick="confirmLogout()" style="letter-spacing:30px; text-indent: 30px;">确认</button>
+                        <button id="cancel-logout" class="logout-btn" onclick="cancelLogout()" style="letter-spacing:30px; text-indent: 30px;">取消</button>
+                    </div>
+                </div>
+            </div>`;
+}
+function confirmLogout() {
     auth.logout();
-    modal.style.display = 'none';
-    auth.refreshData();
+    document.getElementById('tips-modal').style.display = 'none';
+    renderModal();
+    setBar(0, 1, 0, 0, 0, 'UserNotFound', '0000000000');
+    document.getElementById('usericon').src = 'assets/image/noneuser.png';
+}
+function cancelLogout() { document.getElementById('tips-modal').style.display = 'none'; }
+
+function showNotice(text) {
+    const notice = document.getElementById('notice-stage');
+    const msg = document.getElementById('notice-msg');
+
+    if (!notice || !msg) return;
+    msg.innerText = text;
+    notice.classList.remove('notice-active');
+    void notice.offsetWidth; 
+    notice.classList.add('notice-active');
 }

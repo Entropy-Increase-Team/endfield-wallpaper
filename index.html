@@ -46,7 +46,7 @@
             <img id="usercard" src="assets/image/usercard.png" alt="">
             <img id="usercard1" src="assets/image/usercard1.png" alt="">
             <img id="usercard2" src="assets/image/usercard2.png" alt="">
-            <img id="usericon" src="assets/image/usericon.png" onerror="this.onerror=null; this.src='assets/image/noneuser.png';">
+            <img id="usericon" src="assets/image/noneuser.png">
             <div class="button2stage" id="button2stage">
                 <img id="button2" src="assets/image/button2.png" alt="">
                 <img id="button20" src="assets/image/button20.png" alt="">
@@ -87,11 +87,17 @@
                 </div>
                 
                 <div id="modal-body" class="modal-body">
-                    </div>
+                </div>
                 
                 <div class="modal-footer">
                     <div class="system-line"></div>
                 </div>
+            </div>
+        </div>
+        <div id="tips-modal" class="modal-overlay" style=" z-index: 1999; display: none;"></div>
+        <div id="notice-stage" style="display: none;">
+            <div class="modal-content" style="width: 400px; height: 50px; padding: 5px 15px;display: flex;align-items: center;justify-content: center;">
+                <span id="notice-msg" style="font-size: 22px;">MESSAGE</span>
             </div>
         </div>
 
@@ -101,6 +107,7 @@
     <script src="assets/js/quality.js"></script>
     <script src="assets/js/button.js"></script>
     <script src="assets/js/data.js"></script>
+    <script src="assets/js/listener.js"></script>
     <script src="assets/js/auth.js"></script>
     <script>
         // 1. 初始化鉴权插件
@@ -142,7 +149,7 @@
         // 2. 启动鉴权系统
         auth.init();
         
-        // 每小时静默刷新数据
+        // 每5min静默刷新数据
         setInterval(() => auth.refreshData(), 300000);
 
         // 3. 弹窗按钮监听

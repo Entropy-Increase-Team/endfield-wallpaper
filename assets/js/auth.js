@@ -1,22 +1,22 @@
-/**
- * EndfieldAuth - 综合鉴权版（支持 QR 与 远程授权）
- */
 class EndfieldAuth {
     constructor(config) {
         this.baseUrl = config.baseUrl || 'https://end-api.shallow.ink';
         this.onStatusChange = config.onStatusChange || (() => {});
         this.onDataUpdate = config.onDataUpdate || (() => {});
         
-        // 硬编码配置
-        this.API_KEY = 'Your API Key Here'; // 替换为你的 API Key
+        this.API_KEY = 'Your Api Key';
         this.STORAGE_KEY = 'endfield_f_token'; 
         
         this.state = {
             anonToken: null,
             frameworkToken: localStorage.getItem(this.STORAGE_KEY),
             isLoggedIn: false,
-            loginType: null // 'QR' 或 'REMOTE'
+            loginType: null
         };
+    }
+
+    async setApi(api) {
+        this.API_KEY = api;
     }
 
     async init() {
@@ -45,7 +45,23 @@ class EndfieldAuth {
 
     // --- 模式 A: 远程授权请求 (Shared Token) ---
     async createAuthRequest() {
-        try {
+        if (this.API_KEY === 'Your Api Key' || this.API_KEY === '0') {
+                document.getElementById('tips-modal').style.display = 'flex';
+                document.getElementById('tips-modal').innerHTML = `
+                        <div class="modal-content" style="width: 400px;">
+                            <div class="modal-header" style="padding: 15px 25px;">
+                                <span class="modal-title">错误 | ERROR</span>
+                            </div>
+                            <div class="modal-body" style="padding: 25px; font-size: 16px; color: #686868;">
+                                <p style="color:#e74c3c; font-size: 25px; margin-top:5px;">API Key 未配置</p>
+                                <p style="font-size: 16px; margin-top:-10px;">请在WallpaperEngine壁纸配置界面设置的API Key。获取API Key请前往 <a href="javascript:void(0)" style="color:#fffa00;" onclick="copyToClipboard('https://end.shallow.ink')";>终末地-协议终端</a> 申请</p>
+                                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                                    <button id="confirm-logout" class="logout-btn" onclick="confirmLogout()" style="letter-spacing:30px; text-indent: 30px;">确定</button>
+                                </div>
+                            </div>
+                        </div>`;
+        } else {
+            try {
             // 1. 获取操作系统名并生成 4 位随机码
             const os = this._getOSName();
             const randomCode = Math.random().toString(36).substring(2, 6).toUpperCase();
@@ -58,7 +74,6 @@ class EndfieldAuth {
                     'Content-Type': 'application/json' 
                 },
                 body: JSON.stringify({
-                    // client_id 转为小写以符合 ID 规范，显示名保留大写
                     client_id: `EFWP_${terminalName.toLowerCase()}`,
                     client_name: `终末地壁纸终端`, 
                     client_type: "app",
@@ -73,6 +88,7 @@ class EndfieldAuth {
                 return `https://end.shallow.ink/authorize?request_id=${result.data.request_id}`;
             }
         } catch (e) { console.error("Auth Request Failed", e); }
+        }
         return null;
     }
 
