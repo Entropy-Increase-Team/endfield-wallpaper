@@ -30,3 +30,15 @@ function setquality(quality) {
         document.getElementById('infoboard').classList.add('lowblur');
     }
 }
+
+function setadapt(adapt) {
+    if (adapt == 1) {
+        document.getElementById('box0').classList.remove('box0ad2');
+    }
+    if (adapt == 2) {
+        document.getElementById('box0').classList.add('box0ad2');
+    }
+    if (adapt == 3) {
+        document.getElementById('box0').classList.remove('box0ad2');
+    }
+}

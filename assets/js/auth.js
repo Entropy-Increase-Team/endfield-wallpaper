@@ -185,7 +185,7 @@ class EndfieldAuth {
                 if (this.onDataUpdate) this.onDataUpdate(result.data);
                 this.onStatusChange("ACTIVE");
             } else {
-                this.logout();
+                showNotice("登录认证失败，请重试");
             }
         } catch (e) { this.onStatusChange("SYNC_ERROR"); }
     }

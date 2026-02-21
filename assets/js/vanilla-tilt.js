@@ -496,6 +496,60 @@ if (typeof document !== "undefined") {
   VanillaTilt.init(document.querySelectorAll("[data-tilt]"));
 }
 
+/**
+ * VanillaTilt 物理增量动画补丁 - 修正版
+ */
+
+// 1. 拦截原生的 getValues 函数
+const originalGetValues = VanillaTilt.prototype.getValues;
+VanillaTilt.prototype.getValues = function() {
+    const values = originalGetValues.call(this);
+    
+    if (this.impactOffset === undefined) this.impactOffset = 0;
+    
+    // 【修正 1】：使用 parseFloat 确保是数值相加，而不是字符串拼接
+    // 【修正 2】：修改 tiltX 实现左右震荡，修改 tiltY 实现上下震荡
+    let currentTiltX = parseFloat(values.tiltX);
+    values.tiltX = (currentTiltX + this.impactOffset).toFixed(2);
+    
+    return values;
+};
+
+/**
+ * 物理阻尼震荡函数
+ * @param {number} amplitude - 初始冲击角度 (建议 15-30)
+ * @param {number} frequency - 震荡频率 (Hz, 建议 3-10)
+ * @param {number} decay - 衰减速度 (建议 2-5)
+ */
+VanillaTilt.prototype.impact = function(amplitude = 20, frequency = 5, decay = 3) {
+    if (this.impactRAF) cancelAnimationFrame(this.impactRAF);
+
+    // 【修正 3】：动画期间必须强行关闭 CSS transition，否则会跟 rAF 渲染冲突导致卡死
+    this.element.style.transition = "0s"; 
+
+    const startTime = performance.now();
+    
+    const animate = (now) => {
+        const elapsed = (now - startTime) / 1000; 
+
+        // 物理指数衰减正弦公式
+        this.impactOffset = amplitude * Math.exp(-decay * elapsed) * Math.cos(frequency * elapsed * 2 * Math.PI);
+
+        this.update();
+
+        if (Math.abs(this.impactOffset) > 0.1) {
+            this.impactRAF = requestAnimationFrame(animate);
+        } else {
+            this.impactOffset = 0;
+            this.update();
+            // 动画结束，恢复原生的 transition 设置
+            this.setTransition(); 
+        }
+    };
+
+    this.impactRAF = requestAnimationFrame(animate);
+};
+
 return VanillaTilt;
 
 }());

@@ -15,28 +15,28 @@
 
         <div id="box0" class="will-change-transform" data-tilt data-tilt-full-page-listening data-tilt-max="5" data-tilt data-tilt-reset="false">
             <img id="infoboard" class="lowblur" src="assets/image/infoboard.png" alt="">
-            <img id="infoboard1" src="assets/image/infoboard1.png" alt="">
-            <img id="infoboard2" src="assets/image/infoboard2.png" alt="">
+            <img id="infoboard1" class="nonepoint" src="assets/image/infoboard1.png" alt="">
+            <img id="infoboard2" class="nonepoint" src="assets/image/infoboard2.png" alt="">
 
-            <div id="sanity-line" class="line">
-                <div id="sanity-fill" class="line-fill"></div>
+            <div id="sanity-line" class="line nonepoint">
+                <div id="sanity-fill" class="line-fill nonepoint"></div>
             </div>
-            <div id="act-line" class="line">
-                <div id="action-fill" class="line-fill"></div>
+            <div id="act-line" class="line nonepoint">
+                <div id="action-fill" class="line-fill nonepoint"></div>
             </div>
-            <div id="pass-line" class="line">
-                <div id="passion-fill" class="line-fill"></div>
+            <div id="pass-line" class="line nonepoint">
+                <div id="passion-fill" class="line-fill nonepoint"></div>
             </div>
-            <div id="level-line" class="line">
-                <div id="level-fill" class="line-fill"></div>
+            <div id="level-line" class="line nonepoint">
+                <div id="level-fill" class="line-fill nonepoint"></div>
             </div>
-            <div id="sanity-num" class="num-text">00</div>
-            <div id="act-num" class="num-text">00</div>
-            <div id="pass-num" class="num-text">00</div>
-            <div id="level-num" class="num-text">00</div>
-            <div id="sanity-max" class="num-text">00</div>
-            <div id="username" class="num-text">UserNotFound</div>
-            <div id="useruid" class="num-text">0000000000</div>
+            <div id="sanity-num" class="num-text nonepoint">00</div>
+            <div id="act-num" class="num-text nonepoint">00</div>
+            <div id="pass-num" class="num-text nonepoint">00</div>
+            <div id="level-num" class="num-text nonepoint">00</div>
+            <div id="sanity-max" class="num-text nonepoint">00</div>
+            <div id="username" class="num-text nonepoint">UserNotFound</div>
+            <div id="useruid" class="num-text nonepoint">0000000000</div>
 
             <img id="image7" src="assets/image/image7.png" alt="">
 
@@ -44,9 +44,9 @@
             <img id="button1" src="assets/image/button1.png" alt="">
 
             <img id="usercard" src="assets/image/usercard.png" alt="">
-            <img id="usercard1" src="assets/image/usercard1.png" alt="">
-            <img id="usercard2" src="assets/image/usercard2.png" alt="">
-            <img id="usericon" src="assets/image/noneuser.png">
+            <img id="usercard1" class="nonepoint nonepoint" src="assets/image/usercard1.png" alt="">
+            <img id="usercard2" class="nonepoint nonepoint" src="assets/image/usercard2.png" alt="">
+            <img id="usericon" class="nonepoint nonepoint" src="assets/image/noneuser.png">
             <div class="button2stage" id="button2stage">
                 <img id="button2" src="assets/image/button2.png" alt="">
                 <img id="button20" src="assets/image/button20.png" alt="">
@@ -164,6 +164,26 @@
         });
         document.getElementById('close-modal').addEventListener('click', () => {
             modal.style.display = 'none';
+        });
+
+        const infoBoard = document.getElementById('box0');
+        let refresh = true;
+        infoBoard.addEventListener('click', (e) => { 
+            if (e.target.closest('#button0, #button1, #button2stage')) {
+                return; 
+            }
+            
+            if (infoBoard.vanillaTilt && e.target.closest('#usercard, #infoboard')) {
+                if (refresh){
+                    refresh = false;
+                    auth.refreshData();
+                    setTimeout(() => {refresh = true;}, 5000);
+                    showNotice("刷新成功！");
+                } else{
+                    showNotice("操作频繁，稍后再试！");
+                }
+                infoBoard.vanillaTilt.impact(10, 5, 4);
+            }
         });
     </script>
 

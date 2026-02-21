@@ -26,7 +26,11 @@ body {
 .will-change-transform { will-change: transform;}
 .highblur { backdrop-filter: blur(5px); }
 .lowblur { backdrop-filter: blur(2px); }
+.nonepoint { pointer-events: none; }
 .pause { animation-play-state: paused !important; }
+.dark { background-image: linear-gradient(to top, #2e2e2e, #8d8d8d);-webkit-background-clip: text; background-clip: text; color: transparent !important; display: inline-block;}
+
+.box0ad2 { right:5% !important; }
 
 #stage {
     position: relative;
@@ -67,7 +71,7 @@ body {
     width: 50%;
     height: 50%;
     bottom: 0%;
-    right: 5%;
+    right: 0%;
     z-index: 10;
     transform-style: preserve-3d;
 }
