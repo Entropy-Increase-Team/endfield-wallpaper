@@ -1,19 +1,23 @@
 window.wallpaperPropertyListener = {
-    applyUserProperties: function(properties) {
+    applyUserProperties: async function(properties) {
         if (properties.quality) {
-            setquality(properties.quality.value);
+            const val = properties.quality.value;
+            setquality(val);
+            await dbStore.set(DB_KEYS.QUALITY, val);
         }
         if (properties.api) {
             auth.setApi(properties.api.value);
         }
-        if (properties.adapt){
-            setadapt(properties.adapt.value);
+        if (properties.adapt) {
+            const val = properties.adapt.value;
+            setadapt(val);
+            await dbStore.set(DB_KEYS.ADAPT, val);
         }
-        if (properties.mode){
-            if (properties.mode.value == 2) {
-                darkmode = true;
-                changemode(true);
-            }
+        if (properties.mode) {
+            const isDark = (properties.mode.value == 2);
+            darkmode = isDark;
+            changemode(isDark);
+            await dbStore.set(DB_KEYS.IS_DARK, isDark);
         }
     },
 };

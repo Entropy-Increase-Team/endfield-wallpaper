@@ -106,16 +106,14 @@
             </div>
         </div>
 
-
+    <script src="assets/js/auth.js"></script>
     <script src="assets/js/time.js"></script>
     <script src="assets/js/vanilla-tilt.js"></script>
     <script src="assets/js/quality.js"></script>
     <script src="assets/js/button.js"></script>
     <script src="assets/js/data.js"></script>
     <script src="assets/js/listener.js"></script>
-    <script src="assets/js/auth.js"></script>
     <script>
-        // 1. 初始化鉴权插件
         const auth = new EndfieldAuth({
             baseUrl: 'https://end-api.shallow.ink',
             
@@ -154,8 +152,13 @@
             }
         });
 
-        // 2. 启动鉴权系统
-        auth.init();
+        (async () => {
+            // 1. 先从数据库拿回之前的 UI 设置 (避免白屏闪烁)
+            await loadDBsetting();
+            
+            // 2. 启动鉴权系统
+            auth.init();
+        })();
         
         // 每5min静默刷新数据
         setInterval(() => auth.refreshData(), 300000);

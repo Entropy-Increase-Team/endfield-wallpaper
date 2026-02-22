@@ -9,15 +9,31 @@
 			{
 				"index" : 200,
 				"order" : 100,
-				"text" : "<center><br/><a href='https://space.bilibili.com/388390866'><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEKnG.MuT8Ls7Kg.xk*2EBHqnt*JU7utLLszJMxpdJrUs*4QIgSnuoJyyc3d2qp0iexpBYkeijLpt9tfQx9jlyD0!/b&bo=IAPoAyAD6AMDByI!&rf=viewer_4\" width=\"300\" height=\"375\"></a></center>",
+				"text" : "<center><br/><a href='https://space.bilibili.com/388390866'><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEMpU.nOMUV4ron6qJTZ.T4hxyuT7CGcX1.ll4avW1OZB5YR2Y5*uyYG5H.X5BPA.q0r*awKjswLW7KIbP7c0cH8!/b&bo=IAPoAyAD6AMDByI!&rf=viewer_4\" width=\"300\" height=\"375\"></a></center>",
 				"type" : "text",
 				"value" : ""
 			},
-			"api_msg" : 
+			"tk1" : 
 			{
 				"index" : 201,
 				"order" : 102,
-				"text" : "<center><br/><a href='https://space.bilibili.com/99046357'><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEIUMb1ZvF2yDc95IlDi5OoNw4d454aqZjdSNOgFitHvyd5.oZd3ocl.a.JPDr3nPdvvqTZc1XwBqpNqfw83no68!/b&bo=IAPoAyAD6AMDByI!&rf=viewer_4\" width=\"300\" height=\"375\"></a></center>",
+				"text" : "<center><br/><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEGuQd7kkp1.deU6w65Pt0YXwUnfCGV7akl7hW6mtoYl0HWtIBIRUvxKLIEyjDaFGsSWVY0dafCKSDnGa96SWpIA!/b&bo=IAOQASADkAEDByI!&rf=viewer_4\" width=\"300\" height=\"150\"></center>",
+				"type" : "text",
+				"value" : ""
+			},
+			"tk2" : 
+			{
+				"index" : 201,
+				"order" : 103,
+				"text" : "<center><br/><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEGuQd7kkp1.deU6w65Pt0YXMPAxyUCTLp8eMBOZiaJHKTxXG4XvOYm07TYeylA*qfFPm6kJS*Cx8S4ror2w*8v4!/b&bo=IAOQASADkAEDByI!&rf=viewer_4\" width=\"300\" height=\"150\"></center>",
+				"type" : "text",
+				"value" : ""
+			},
+			"tk3" : 
+			{
+				"index" : 201,
+				"order" : 104,
+				"text" : "<center><br/><img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEGuQd7kkp1.deU6w65Pt0YXJxM37h2iBNT*Q2odimOELBhpLHtAAzvaEeg6O.1U3DhMsSN*ctqMVg571LtDE3*4!/b&bo=IAOQASADkAEDByI!&rf=viewer_4\" width=\"300\" height=\"150\"></center>",
 				"type" : "text",
 				"value" : ""
 			},
@@ -159,53 +175,205 @@
 				"value" : ""
 			},
 			"line20" : 
-			{
-				"index" : 7,
-				"order" : 140,
-				"text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKNRTvxvUMMeM7QNklfClbypUWBNpktP4GUhQoPfPkLR.c05nhjGkSBztxCNWxVIMQ!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"5\">",
-				"type" : "color",
-				"value" : "1 0 0"
-			},
-			"title-main" : 
-			{
-				"index" : 6,
-				"order" : 141,
-				"text" : "<big><b>壁纸教程",
-				"type" : "text",
-				"value" : ""
-			},
-			"title-0" : 
-			{
-				"index" : 6,
-				"order" : 142,
-				"text" : "<b>1.绑定方式与区别",
-				"type" : "text",
-				"value" : ""
-			},
-			"maintext-0" : 
-			{
-				"index" : 6,
-				"order" : 143,
-				"text" : "本壁纸包含两种绑定账户的方式，点击壁纸右侧“链接”按钮即可看到：扫码直绑与网站授权绑定。",
-				"type" : "text",
-				"value" : ""
-			},
-			"maintext-1" : 
-			{
-				"index" : 6,
-				"order" : 144,
-				"text" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;扫码直绑：直接使用森空岛扫码即可绑定，速度最快，但稳定性较差，可能频繁出现数据断连；且该方法数据将与 终末地:协议终端 网站数据冲突，两者无法共同使用。\n授权绑定：前往 终末地:协议终端 注册并绑定游戏账号，之后在 开发者>API密匙>新建密匙 即可申请密匙",
-				"type" : "text",
-				"value" : ""
-			},
-			"maintext-2" : 
-			{
-				"index" : 6,
-				"order" : 145,
-				"text" : "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授权绑定：前往 终末地:协议终端 注册并绑定游戏账号，之后在 开发者>API密匙>新建密匙 即可申请密匙",
-				"type" : "text",
-				"value" : ""
-			},
+            {
+                "index" : 7,
+                "order" : 140,
+                "text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKNRTvxvUMMeM7QNklfClbypUWBNpktP4GUhQoPfPkLR.c05nhjGkSBztxCNWxVIMQ!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"5\">",
+                "type" : "color",
+                "value" : "1 0 0"
+            },
+            "title-main" : 
+            {
+                "index" : 6,
+                "order" : 141,
+                "text" : "<big><b>壁纸教程",
+                "type" : "text",
+                "value" : ""
+            },
+            "title-0" : 
+            {
+                "index" : 6,
+                "order" : 142,
+                "text" : "<b>1. 绑定方式与区别",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-0" : 
+            {
+                "index" : 6,
+                "order" : 143,
+                "text" : "本壁纸包含两种绑定账户的方式，点击壁纸右侧“链接”按钮即可看到：扫码直绑与网站授权绑定。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-1" : 
+            {
+                "index" : 6,
+                "order" : 144,
+                "text" : "&nbsp;▶&nbsp;扫码直绑：直接使用森空岛扫码即可绑定，速度最快，但稳定性较差，可能频繁出现数据断连；且该方法数据将与 终末地:协议终端 网站数据冲突，两者无法共同使用。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-2" : 
+            {
+                "index" : 6,
+                "order" : 145,
+                "text" : "&nbsp;▶&nbsp;授权绑定：前往 终末地:协议终端 注册并绑定游戏账号，之后在 开发者 > API密钥 > 新建密钥 即可申请密钥。",
+                "type" : "text",
+                "value" : ""
+            },
+            "line21" : 
+            {
+                "index" : 6,
+                "order" : 146,
+                "text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKunHFgloIezVj.54GGf7QL5DfCC.PZiF2I0iN0AczuYGIDjEhS4pXf6MFkk1D3sg0!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"2\">",
+                "type" : "color",
+                "value" : "1 0 0"
+            },
+            "title-1" : 
+            {
+                "index" : 6,
+                "order" : 147,
+                "text" : "<b>2. 壁纸功能介绍",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-3" : 
+            {
+                "index" : 6,
+                "order" : 148,
+                "text" : "常见 Wallpaper Engine（下称 WE）功能此处不再一一赘述。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-4" : 
+            {
+                "index" : 6,
+                "order" : 149,
+                "text" : "&nbsp;▶&nbsp;自动刷新：壁纸具有每 5 分钟自动拉取、刷新数据的功能。请注意，该计时仅在壁纸运行时有效，如果壁纸处于 暂停、停止-释放内存 状态（详细设置见 WE 设置），则其计时停止。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-5" : 
+            {
+                "index" : 6,
+                "order" : 150,
+                "text" : "&nbsp;▶&nbsp;手动刷新：点击 信息面板 或 个人面板 可以触发手动数据拉取与刷新。该功能支持即按即刷，但考虑网络及服务器压力，手动刷新每 5 秒仅能生效一次。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-6" : 
+            {
+                "index" : 6,
+                "order" : 151,
+                "text" : "&nbsp;▶&nbsp;一键重载：在 链接 按钮中，壁纸内置了一键重新加载的按钮。如遇卡死或其他错误可尝试重载，但该功能较局限，如问题仍然存在，请尝试切换壁纸或重启 WE。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-7" : 
+            {
+                "index" : 6,
+                "order" : 152,
+                "text" : "&nbsp;▶&nbsp;自动恢复：壁纸具有一定记忆功能，再次启动时不会丢失已配置的 API 密钥、Token、偏好设置等信息。但由于 WE 环境隔离度较高，本身存在不稳定性（壁纸代码也比较小杯），如配置信息失效烦请重新设置。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-8" : 
+            {
+                "index" : 6,
+                "order" : 153,
+                "text" : "&nbsp;▶&nbsp;快捷启动：受限于 WE 安全限制，该功能暂无法实现，请等待后续更新。",
+                "type" : "text",
+                "value" : ""
+            },
+            "line22" : 
+            {
+                "index" : 6,
+                "order" : 154,
+                "text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKunHFgloIezVj.54GGf7QL5DfCC.PZiF2I0iN0AczuYGIDjEhS4pXf6MFkk1D3sg0!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"2\">",
+                "type" : "color",
+                "value" : "1 0 0"
+            },
+            "title-2" : 
+            {
+                "index" : 6,
+                "order" : 155,
+                "text" : "<b>3. 声明",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-9" : 
+            {
+                "index" : 6,
+                "order" : 156,
+                "text" : "&nbsp;▶&nbsp;本作品基于 AGPLv3 协议开源、支持二创，再次分发请遵守开源协议并注明制作者及原画师。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-10" : 
+            {
+                "index" : 6,
+                "order" : 157,
+                "text" : "&nbsp;▶&nbsp;本作包含第三方 API 服务，其与《明日方舟：终末地》及鹰角网络均无直接关系。使用过程中存在数据泄露、账户停用等风险，本作制作者及团队不予负责，使用即代表同意该条款。",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-11" : 
+            {
+                "index" : 6,
+                "order" : 158,
+                "text" : "&nbsp;▶&nbsp;本作部分美术资源、角色形象解释权归属上海鹰角网络科技有限公司所有，如有侵权请联系删除。",
+                "type" : "text",
+                "value" : ""
+            },
+            "line23" : 
+            {
+                "index" : 6,
+                "order" : 159,
+                "text" : "<img src=\"https://photogzmaz.photo.store.qq.com/psc?/V536gljl1qiwQH0nc7Ya0E4zab4e5C9a/TmEUgtj9EK6.7V8ajmQrEFgk7Ueek0TIGGcx1*L3nYKunHFgloIezVj.54GGf7QL5DfCC.PZiF2I0iN0AczuYGIDjEhS4pXf6MFkk1D3sg0!/b&bo=IAMMACADDAADByI!&rf=viewer_4\" width=\"400\" height=\"2\">",
+                "type" : "color",
+                "value" : "1 0 0"
+            },
+            "title-3" : 
+            {
+                "index" : 6,
+                "order" : 160,
+                "text" : "<b>4. 相关链接",
+                "type" : "text",
+                "value" : ""
+            },
+            "maintext-12" : 
+            {
+                "index" : 6,
+                "order" : 161,
+                "text" : "终末地:协议终端：",
+                "type" : "textinput",
+                "value" : "https://end.shallow.ink/"
+            },
+            "maintext-13" : 
+            {
+                "index" : 6,
+                "order" : 162,
+                "text" : "终末地:动态壁纸 介绍视频：",
+                "type" : "textinput",
+                "value" : "https://www.bilibili.com/"
+            },
+            "maintext-14" : 
+            {
+                "index" : 6,
+                "order" : 163,
+                "text" : "终末地:动态壁纸 GitHub：",
+                "type" : "textinput",
+                "value" : "https://github.com/Entropy-Increase-Team/endfield-wallpaper"
+            },
+            "maintext-15" : 
+            {
+                "index" : 6,
+                "order" : 164,
+                "text" : "终末地:协议终端 开发者文档：",
+                "type" : "textinput",
+                "value" : "https://github.com/Entropy-Increase-Team/endfield-docs"
+            },
 			"schemecolor" : 
 			{
 				"order" : 0,

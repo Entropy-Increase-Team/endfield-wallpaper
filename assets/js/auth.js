@@ -1,3 +1,9 @@
+const DB_KEYS = {
+    QUALITY: 'cfg_quality',
+    ADAPT: 'cfg_adapt',
+    IS_DARK: 'cfg_is_dark'
+};
+
 const dbStore = {
     dbName: "EndfieldTerminalDB",
     storeName: "auth_settings",

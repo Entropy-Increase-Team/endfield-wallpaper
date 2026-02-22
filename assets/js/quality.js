@@ -46,19 +46,6 @@ function setadapt(adapt) {
     }
 }
 
-let darkmode = false;
-document.getElementById("button1").addEventListener('click', () => {
-    if (!darkmode) {
-        showNotice("已切换到 深色模式 ");
-        darkmode = true;
-        changemode(true);
-    } else{
-        showNotice("已切换到 浅色模式 ");
-        darkmode = false;
-        changemode(false);
-    }
-});
-
 function changemode(isdark){
     if (isdark){
         document.body.style.backgroundImage = "url('assets/image/background_d.png')";
@@ -93,4 +80,26 @@ function changemode(isdark){
         document.getElementById("infoboard").src = 'assets/image/infoboard.png'
         document.getElementById("usercard").src = 'assets/image/usercard.png'
     }
+}
+
+
+async function loadDBsetting() {
+    try {
+        const [savedQuality, savedAdapt, savedIsDark] = await Promise.all([
+            dbStore.get(DB_KEYS.QUALITY),
+            dbStore.get(DB_KEYS.ADAPT),
+            dbStore.get(DB_KEYS.IS_DARK)
+        ]);
+
+        if (savedQuality !== null) {
+            setquality(savedQuality);
+        }
+        if (savedAdapt !== null) {
+            setadapt(savedAdapt);
+        }
+        if (savedIsDark !== null) {
+            darkmode = savedIsDark;
+            changemode(savedIsDark);
+        }
+    } catch (e) {}
 }

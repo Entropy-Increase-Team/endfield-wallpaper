@@ -22,3 +22,16 @@ document.getElementById("button2stage").addEventListener('click', () => {
         pause = false;
     }
 });
+
+let darkmode = false;
+document.getElementById("button1").addEventListener('click', () => {
+    if (!darkmode) {
+        showNotice("已切换到 深色模式 ");
+        darkmode = true;
+        changemode(true);
+    } else{
+        showNotice("已切换到 浅色模式 ");
+        darkmode = false;
+        changemode(false);
+    }
+});
