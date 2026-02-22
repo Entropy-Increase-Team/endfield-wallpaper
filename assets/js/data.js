@@ -38,6 +38,14 @@ async function renderModal() {
     if (auth.state.isLoggedIn) {
         const name = document.getElementById('username').innerText;
         const uid = document.getElementById('useruid').innerText;
+        
+        // 将代码中的标识符转换为显示文字
+        const methodMap = {
+            'QR': '扫码登录',
+            'REMOTE': '远程授权'
+        };
+        const loginMethod = methodMap[auth.state.loginType] || '未知途径';
+
         modalBody.innerHTML = `
             <div class="account-info">
                 <div class="label" style="color:#fffa00;font-size:25px;margin-top:5px;">壁纸终端:登录成功</div>
@@ -45,10 +53,12 @@ async function renderModal() {
                 <div class="value">${name}</div>
                 <div class="label">UID</div>
                 <div class="value">${uid}</div>
+                <div class="label">登录途径</div>
+                <div class="value">${loginMethod}</div>
             </div>
             <button class="logout-btn" style="margin-top:20px;" onclick="handleLogout()">登出</button>
         `;
-    } 
+    }
     // 状态 2: 选择登录方式
     else {
         modalBody.innerHTML = `
@@ -70,8 +80,8 @@ async function renderModal() {
                     <div id="remote-link-area" style="display:none; margin-top:10px; border:2px dashed #fffa00; border-radius:10px; padding:10px; text-align:center;">
                         <a id="auth-target-url" href="javascript:void(0)" 
                            style="color:#fffa00; font-size:18px; text-decoration:none;" 
-                           onclick="copyAuthUrl()">点击以复制授权链接</a>
-                        <div id="copy-status" style="font-size:12px; color:#fffa00; margin-top:5px;">AWAITING_INIT...</div>
+                           onclick="copyAuthUrl()">获取链接中...</a>
+                        <div id="copy-status" style="font-size:12px; color:#fffa00; margin-top:5px;">AWAITING INIT...</div>
                     </div>
                 </div>
             </div>
@@ -94,18 +104,47 @@ async function handleRemoteAuth() {
     const btn = document.getElementById('remote-init-btn');
     const area = document.getElementById('remote-link-area');
     const status = document.getElementById('copy-status');
+    const text = document.getElementById('auth-target-url');
     
+    // 1. 进入“生成中”状态
     btn.style.display = 'none';
     area.style.display = 'block';
-    status.innerText = "GENERATING_LINK...";
+    status.innerText = "GENERATING LINK...";
+    text.innerText = "获取链接中...";
     
-    const url = await auth.createAuthRequest(); // 调用 auth.js 的授权申请接口
-    if (url) {
-        currentAuthUrl = url;
-        status.innerText = "READY_CLICK_TO_COPY";
-    } else {
-        status.innerText = "GENERATE_FAILED";
+    try {
+        const url = await auth.createAuthRequest(); 
+        
+        if (url) {
+            // 2. 成功状态
+            currentAuthUrl = url;
+            text.innerText = "就绪！点击复制"
+            status.innerText = "READY! CLICK TO COPY";
+        } else {
+            btn.style.display = 'block';
+            area.style.display = 'none';
+            
+            if (auth.API_KEY !== '0' && auth.API_KEY !== 'Your Api Key') {
+                document.getElementById('tips-modal').style.display = 'flex';
+                document.getElementById('tips-modal').innerHTML = `
+                        <div class="modal-content" style="width: 400px;">
+                            <div class="modal-header" style="padding: 15px 25px;">
+                                <span class="modal-title">错误 | ERROR</span>
+                            </div>
+                            <div class="modal-body" style="padding: 25px; font-size: 16px; color: #686868;">
+                                <p style="color:#e74c3c; font-size: 25px; margin-top:5px;">API Key 配置错误</p>
+                                <p style="font-size: 16px; margin-top:-10px;">请在WallpaperEngine壁纸配置界面设置的API Key。获取API Key请前往 <a href="javascript:void(0)" style="color:#fffa00;" onclick="copyToClipboard('https://end.shallow.ink')";>终末地-协议终端</a> 申请</p>
+                                <div style="display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px;">
+                                    <button id="confirm-logout" class="logout-btn" onclick="confirmLogout()" style="letter-spacing:30px; text-indent: 30px;">确定</button>
+                                </div>
+                            </div>
+                        </div>`;
+            }
+        }
+    } catch (e) {
         btn.style.display = 'block';
+        area.style.display = 'none';
+        showNotice("ERROR: 终端链路连接中断");
     }
 }
 

@@ -45,15 +45,16 @@ class EndfieldAuth {
         this.onStatusChange = config.onStatusChange || (() => {});
         this.onDataUpdate = config.onDataUpdate || (() => {});
         
-        this.API_KEY = '0';
-        this.STORAGE_KEY = 'endfield_f_token'; 
+        this.API_KEY = '0'; 
+        this.STORAGE_KEY = 'endfield_f_token';
         this.API_STORAGE_KEY = 'endfield_saved_api';
-        
+        this.TYPE_STORAGE_KEY = 'endfield_login_type'; // 新增：保存登录类型
+
         this.state = {
             anonToken: null,
             frameworkToken: null,
             isLoggedIn: false,
-            loginType: null
+            loginType: null // 'QR' 代表扫码，'REMOTE' 代表授权
         };
     }
 
@@ -63,16 +64,18 @@ class EndfieldAuth {
     }
 
     async init() {
-        this.onStatusChange("INITIALIZING");
-        try {
-            // 1. 同时从 IndexedDB 获取 Token 和 API Key
-            const [savedToken, savedApi] = await Promise.all([
-                dbStore.get(this.STORAGE_KEY),
-                dbStore.get(this.API_STORAGE_KEY)
-            ]);
+    this.onStatusChange("INITIALIZING");
+    try {
+        // 异步读取所有持久化状态
+        const [token, api, type] = await Promise.all([
+            dbStore.get(this.STORAGE_KEY),
+            dbStore.get(this.API_STORAGE_KEY),
+            dbStore.get(this.TYPE_STORAGE_KEY)
+        ]);
 
-            this.state.frameworkToken = savedToken;
-            if (savedApi) this.API_KEY = savedApi; // 恢复保存的 API
+        this.state.frameworkToken = token;
+        this.state.loginType = type || 'QR'; // 默认设为扫码模式
+        if (api) this.API_KEY = api;
 
             // 2. 获取匿名令牌 (保持不变)
             const fingerprint = this._generateFingerprint();
@@ -84,8 +87,7 @@ class EndfieldAuth {
             const result = await res.json();
             this.state.anonToken = result.data.token;
 
-            // 3. 自动登录判定 (如果 API 还是 0，即便有 Token 也会报错，所以这里可以加个判定)
-            if (this.state.frameworkToken && this.API_KEY !== '0') {
+            if (this.state.frameworkToken) {
                 await this.refreshData();
             } else {
                 this.onStatusChange("AWAITING_LOGIN");
@@ -171,28 +173,46 @@ class EndfieldAuth {
 
     async refreshData() {
         if (!this.state.frameworkToken) return;
+
+        const headers = {
+            'X-Anonymous-Token': this.state.anonToken,
+            'X-Framework-Token': this.state.frameworkToken
+        };
+
+        // 如果是授权模式，额外加上 API Key 校验
+        if (this.state.loginType === 'REMOTE') {
+            headers['X-API-Key'] = this.API_KEY;
+        }
+
         try {
-            const res = await fetch(`${this.baseUrl}/api/endfield/note`, {
-                headers: {
-                    'X-Anonymous-Token': this.state.anonToken,
-                    'X-API-Key': this.API_KEY,
-                    'X-Framework-Token': this.state.frameworkToken
-                }
-            });
+            const res = await fetch(`${this.baseUrl}/api/endfield/note`, { headers });
             const result = await res.json();
-            if (result.code === 0) {
+
+            if (result.code === 0 || result.code === 200) {
                 this.state.isLoggedIn = true;
-                if (this.onDataUpdate) this.onDataUpdate(result.data);
+                this.onDataUpdate(result.data);
                 this.onStatusChange("ACTIVE");
             } else {
-                showNotice("登录认证失败，请重试");
+                // 如果是 Token 过期导致的失败，才清理数据
+                if (result.message?.includes("token")) {
+                    this.logout();
+                } else {
+                    this.onStatusChange("API_ERROR");
+                }
             }
-        } catch (e) { this.onStatusChange("SYNC_ERROR"); }
+        } catch (err) {
+            this.onStatusChange("API_ERROR");
+        }
     }
 
     async logout() {
-        await dbStore.delete(this.STORAGE_KEY);
+        // 同时清理 Token 和 登录类型
+        await Promise.all([
+            dbStore.delete(this.STORAGE_KEY),
+            dbStore.delete(this.TYPE_STORAGE_KEY)
+        ]);
         this.state.frameworkToken = null;
+        this.state.loginType = null; // 重置状态
         this.state.isLoggedIn = false;
         this.onStatusChange("AWAITING_LOGIN");
     }
@@ -200,13 +220,23 @@ class EndfieldAuth {
     // 轮询：远程授权
     _startRequestPolling(requestId) {
         const timer = setInterval(async () => {
-            const res = await fetch(`${this.baseUrl}/api/v1/authorization/requests/${requestId}/status`, {
-                headers: { 'X-API-Key': this.API_KEY }
-            });
-            const result = await res.json();
-            if (result.data.status === 'approved' || result.data.status === 'used') {
-                clearInterval(timer);
-                this._completeLogin(result.data.framework_token, this.API_KEY, 'REMOTE');
+            try {
+                const res = await fetch(`${this.baseUrl}/api/v1/authorization/requests/${requestId}/status`, {
+                    headers: { 'X-API-Key': this.API_KEY }
+                });
+                const result = await res.json();
+
+                if (result.data.status === 'approved' || result.data.status === 'used') {
+                    clearInterval(timer);
+                    // 确保参数顺序：Token, 类型, API Key
+                    this._completeLogin(result.data.framework_token, 'REMOTE', this.API_KEY);
+                } else if (result.data.status === 'expired' || result.data.status === 'denied') {
+                    clearInterval(timer);
+                    this.onStatusChange("AWAITING_LOGIN");
+                    console.warn("授权请求已过期或被拒绝");
+                }
+            } catch (err) {
+                console.error("轮询授权状态失败:", err);
             }
         }, 3000);
     }
@@ -220,21 +250,29 @@ class EndfieldAuth {
             const result = await res.json();
             if (result.data.status === 'done') {
                 clearInterval(timer);
-                this._completeLogin(fToken, 'null','QR');
+                // 扫码登录：只传 Token 和类型，不传任何 API 信息
+                this._completeLogin(fToken, 'QR'); 
             }
         }, 2000);
     }
 
-    async _completeLogin(token, api, type) {
+    async _completeLogin(token, type, api = null) {
         this.state.frameworkToken = token;
         this.state.loginType = type;
-        
-        // 修正：将 api 存入对应的键名，且纠正 adStore 为 dbStore
-        await Promise.all([
+
+        // 1. 保存 Token 和 登录类型
+        const tasks = [
             dbStore.set(this.STORAGE_KEY, token),
-            dbStore.set(this.API_STORAGE_KEY, api) 
-        ]);
-        
+            dbStore.set(this.TYPE_STORAGE_KEY, type)
+        ];
+
+        // 2. 只有远程授权才处理 API Key，扫码流程绝不触碰 API 存储
+        if (type === 'REMOTE' && api) {
+            this.API_KEY = api;
+            tasks.push(dbStore.set(this.API_STORAGE_KEY, api));
+        }
+
+        await Promise.all(tasks);
         await this.refreshData();
     }
 

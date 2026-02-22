@@ -148,6 +148,9 @@
                 if (userIcon && data.base.avatarUrl) {
                     userIcon.src = `https://end-api.shallow.ink/api/proxy/image?url=${encodeURIComponent(data.base.avatarUrl)}`;
                 }
+                if (typeof modal !== 'undefined' && modal.style.display === 'flex') {
+                    renderModal();
+                }
             }
         });
 

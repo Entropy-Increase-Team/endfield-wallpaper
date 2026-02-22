@@ -31,6 +31,7 @@ body {
 .dark { background-image: linear-gradient(to top, #2e2e2e, #8d8d8d);-webkit-background-clip: text; background-clip: text; color: transparent !important; display: inline-block;}
 
 .box0ad2 { right:5% !important; }
+.box0ad3 { width:45% !important; height:45% !important; bottom:6% !important; }
 
 #stage {
     position: relative;
@@ -53,7 +54,7 @@ body {
     right: 19%;
     color:#2c2c2c;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 4cqw;
+    font-size: 5cqw;
     z-index: 6;
 }
 #date {
@@ -62,7 +63,7 @@ body {
     right: 32.5%;
     color:#2c2c2c;
     font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
-    font-size: 1.6cqw;
+    font-size: 2cqw;
     z-index: 6;
 }
 
@@ -74,6 +75,11 @@ body {
     right: 0%;
     z-index: 10;
     transform-style: preserve-3d;
+
+    container-type: inline-size;
+    container-name: main-layout;
+
+
 }
 #box1 {
     position: absolute;
@@ -83,6 +89,9 @@ body {
     right: -10%;
     z-index: 6;
     transform-style: preserve-3d;
+
+    container-type: inline-size;
+    container-name: main-layout;
 }
 
 #image0 {
@@ -415,7 +424,7 @@ body {
     position: absolute;
     right: 14.2%;
     font-family: AlimamaShuHeiTi-Bold, 'Microsoft YaHei', sans-serif;
-    font-size: 2.3cqw;
+    font-size: 5cqw;
     color: white;
     transform: translateZ(21px);
 }
@@ -447,24 +456,24 @@ body {
     bottom: 51.7%;
 }
 #level-num {
-    font-size: 3cqw;
+    font-size: 6cqw;
     right: 52.8%;
     bottom: 28.5%;
     transform: translateZ(90px);
 }
 #sanity-max {
-    font-size: 0.8cqw;
+    font-size: 1.6cqw;
     right: 26%;
     bottom: 82.45%;
 }
 #username {
-    font-size: 1.4cqw;
+    font-size: 2.8cqw;
     right: 29.4%;
     bottom: 38%;
     transform: translateZ(90px);
 }
 #useruid {
-    font-size: 0.7cqw;
+    font-size: 1.4cqw;
     right: 29.8%;
     bottom: 35.3%;
     transform: translateZ(80px);
