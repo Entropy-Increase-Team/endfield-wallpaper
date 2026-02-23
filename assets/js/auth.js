@@ -244,7 +244,7 @@ class EndfieldAuth {
             } catch (err) {
                 console.error("轮询授权状态失败:", err);
             }
-        }, 3000);
+        }, 1000);
     }
 
     // 轮询：二维码
@@ -259,7 +259,7 @@ class EndfieldAuth {
                 // 扫码登录：只传 Token 和类型，不传任何 API 信息
                 this._completeLogin(fToken, 'QR'); 
             }
-        }, 2000);
+        }, 1000);
     }
 
     async _completeLogin(token, type, api = null) {

@@ -57,6 +57,7 @@ async function renderModal() {
                 <div class="value">${loginMethod}</div>
             </div>
             <button class="logout-btn" style="margin-top:20px;" onclick="handleLogout()">登出</button>
+            <button class="logout-btn" style="margin-top:20px;" onclick="closeModal()">确认</button>
         `;
     }
     // 状态 2: 选择登录方式

@@ -28,7 +28,7 @@ body {
 .lowblur { backdrop-filter: blur(2px); }
 .nonepoint { pointer-events: none; }
 .pause { animation-play-state: paused !important; }
-.dark { background-image: linear-gradient(to top, #2e2e2e, #8d8d8d);-webkit-background-clip: text; background-clip: text; color: transparent !important; display: inline-block;}
+.dark { background-image: linear-gradient(to top,#2e2e2e, #f0f0f0);-webkit-background-clip: text; background-clip: text; color: transparent !important; display: inline-block;}
 
 .box0ad2 { right:5% !important; }
 .box0ad3 { width:45% !important; height:45% !important; bottom:6% !important; }
@@ -424,6 +424,7 @@ body {
     position: absolute;
     right: 14.2%;
     font-family: AlimamaShuHeiTi-Bold, 'Microsoft YaHei', sans-serif;
+    font-weight: bold;
     font-size: 5cqw;
     color: white;
     transform: translateZ(21px);
@@ -523,8 +524,8 @@ body {
 
 /* 按钮样式 */
 .logout-btn {
-    width: 100%; padding: 10px; background: #ff9900; border-radius: 15px; border: none; color: white;
-    cursor: pointer; font-family: AlimamaShuHeiTi-Bold; font-size: 20px; letter-spacing:60px; text-indent: 60px; transition: 0.2s;
+    width: 45%; padding: 10px; background: #ff9900; border-radius: 15px; border: none; color: white;
+    cursor: pointer; font-family: AlimamaShuHeiTi-Bold; font-size: 20px; letter-spacing:30px; text-indent: 30px; transition: 0.2s;
 }
 .logout-btn:hover { background: #e74c3c; }
 

@@ -169,8 +169,12 @@
             renderModal();
         });
         document.getElementById('close-modal').addEventListener('click', () => {
-            modal.style.display = 'none';
+            closeModal();
         });
+
+        function closeModal() {
+            modal.style.display = 'none';
+        }
 
         const infoBoard = document.getElementById('box0');
         let refresh = true;
