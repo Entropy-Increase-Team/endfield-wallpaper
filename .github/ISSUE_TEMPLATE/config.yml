@@ -1,0 +1,17 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 📖 项目文档 (README)
+    url: https://github.com/Entropy-Increase-Team/endfield-wallpaper#readme
+    about: 在提交 Issue 之前，请先查阅壁纸使用说明与配置
+  - name: 🔧 协议终端 / API / 后端问题
+    url: https://github.com/Entropy-Increase-Team/endfield-plugin/issues
+    about: 接口、数据、插件等后端相关问题请到此仓库提交
+  - name: 💬 讨论区
+    url: https://github.com/Entropy-Increase-Team/endfield-plugin/discussions
+    about: 如有疑问或想法，欢迎在讨论区交流
+  - name: QQ 群
+    url: https://qm.qq.com/q/1gEjaWXf6w
+    about: 欢迎进群交流
+  - name: 视频教程
+    url: https://www.bilibili.com/video/BV1JtfmB1E4h
+    about: 欢迎观看视频教程
