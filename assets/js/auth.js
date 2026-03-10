@@ -55,6 +55,7 @@ class EndfieldAuth {
         this.STORAGE_KEY = 'endfield_f_token';
         this.API_STORAGE_KEY = 'endfield_saved_api';
         this.TYPE_STORAGE_KEY = 'endfield_login_type'; // 新增：保存登录类型
+        this.FINGERPRINT_STORAGE_KEY = 'endfield_device_uuid'; // 设备唯一标识（持久化）
 
         this.state = {
             anonToken: null,
@@ -73,22 +74,23 @@ class EndfieldAuth {
     this.onStatusChange("INITIALIZING");
     try {
         // 异步读取所有持久化状态
-        const [token, api, type] = await Promise.all([
+        const [token, api, type, fingerprint] = await Promise.all([
             dbStore.get(this.STORAGE_KEY),
             dbStore.get(this.API_STORAGE_KEY),
-            dbStore.get(this.TYPE_STORAGE_KEY)
+            dbStore.get(this.TYPE_STORAGE_KEY),
+            dbStore.get(this.FINGERPRINT_STORAGE_KEY)
         ]);
 
         this.state.frameworkToken = token;
         this.state.loginType = type || 'QR'; // 默认设为扫码模式
         if (api) this.API_KEY = api;
 
-            // 2. 获取匿名令牌 (保持不变)
-            const fingerprint = this._generateFingerprint();
+            // 2. 获取匿名令牌
+            const stableFingerprint = await this._getOrCreateDeviceFingerprint(fingerprint);
             const res = await fetch(`${this.baseUrl}/api/v1/auth/anonymous-token`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ fingerprint })
+                body: JSON.stringify({ fingerprint: stableFingerprint })
             });
             const result = await res.json();
             this.state.anonToken = result.data.token;
@@ -282,8 +284,35 @@ class EndfieldAuth {
         await this.refreshData();
     }
 
-    _generateFingerprint() {
-        const canvas = document.createElement('canvas');
-        return btoa(navigator.userAgent + screen.width + canvas.toDataURL()).substring(0, 32);
+    async _getOrCreateDeviceFingerprint(existingFingerprint) {
+        if (existingFingerprint && typeof existingFingerprint === 'string' && existingFingerprint.length >= 32) {
+            return existingFingerprint;
+        }
+
+        const uuid = this._generateUUID();
+        await dbStore.set(this.FINGERPRINT_STORAGE_KEY, uuid);
+        return uuid;
+    }
+
+    _generateUUID() {
+        if (typeof crypto !== 'undefined' && crypto.randomUUID) {
+            return crypto.randomUUID();
+        }
+
+        // 兼容不支持 randomUUID 的运行时
+        const bytes = new Uint8Array(16);
+        if (typeof crypto !== 'undefined' && crypto.getRandomValues) {
+            crypto.getRandomValues(bytes);
+        } else {
+            for (let i = 0; i < bytes.length; i++) {
+                bytes[i] = Math.floor(Math.random() * 256);
+            }
+        }
+
+        bytes[6] = (bytes[6] & 0x0f) | 0x40;
+        bytes[8] = (bytes[8] & 0x3f) | 0x80;
+
+        const hex = Array.from(bytes, b => b.toString(16).padStart(2, '0')).join('');
+        return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
     }
 }
